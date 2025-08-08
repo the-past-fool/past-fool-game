@@ -187,7 +187,7 @@ export default function Page() {
         )}
 
         <div className="grid grid-cols-2 gap-2">
-          <a href={BRAND.tiktok} target="_blank" rel="noreferrer" className="rounded-xl bg-white/5 p-3 text-center hover:bg-white/10">More Past Fool >></a>
+          <a href={BRAND.tiktok} target="_blank" rel="noreferrer" className="rounded-xl bg-white/5 p-3 text-center hover:bg-white/10">More Past Fool &gt;&gt;</a>
           <button onClick={shareScore} className="rounded-xl bg-white/5 p-3 hover:bg-white/10">Share my score</button>
         </div>
 
