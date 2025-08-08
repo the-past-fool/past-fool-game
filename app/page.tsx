@@ -53,9 +53,7 @@ function useCountdown(seconds: number, isRunning: boolean) {
   useEffect(() => {
     if (!isRunning) return;
     timerRef.current = setInterval(() => setTime((t) => Math.max(0, t - 1)), 1000);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, [isRunning]);
   const reset = () => setTime(seconds);
   return { time, reset } as const;
@@ -69,12 +67,7 @@ export default function Page() {
   const [score, setScore] = useState(0);
   const [streak, setStreak] = useState(0);
   const [best, setBest] = useState<number>(() => {
-    try {
-      const v = localStorage.getItem("pastfool-best");
-      return v ? Number(v) : 0;
-    } catch {
-      return 0;
-    }
+    try { const v = localStorage.getItem("pastfool-best"); return v ? Number(v) : 0; } catch { return 0; }
   });
   const [adminOpen, setAdminOpen] = useState(false);
 
@@ -127,29 +120,19 @@ export default function Page() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4">
       <div className="max-w-md w-full space-y-4">
-        {/* Header */}
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight">{BRAND.title}</h1>
             <p className="text-sm text-neutral-300">{BRAND.tagline}</p>
           </div>
           <div className="flex gap-2 items-center">
-            <button
-              onClick={() => setAdminOpen((v) => !v)}
-              className="px-3 py-2 text-xs rounded-lg bg-white/10 hover:bg-white/20"
-              title="Admin / content panel"
-            >
-              Admin
-            </button>
+            <button onClick={() => setAdminOpen((v) => !v)} className="px-3 py-2 text-xs rounded-lg bg-white/10 hover:bg-white/20">Admin</button>
             <a href={BRAND.tiktok} target="_blank" rel="noreferrer">
-              <button className="px-3 py-2 text-xs rounded-full bg-white text-black hover:opacity-90">
-                Follow
-              </button>
+              <button className="px-3 py-2 text-xs rounded-full bg-white text-black hover:opacity-90">Follow</button>
             </a>
           </div>
         </div>
 
-        {/* Score Row */}
         <div className="grid grid-cols-4 gap-2 text-center text-xs">
           {[
             { label: "seconds", value: time },
@@ -164,38 +147,22 @@ export default function Page() {
           ))}
         </div>
 
-        {/* Ad slot */}
         <div className="w-full h-16 rounded-xl border border-white/10 bg-white/5 backdrop-blur flex items-center justify-center text-xs text-neutral-400">
           Sponsor space
         </div>
 
-        {/* Card */}
         <div className={`rounded-2xl p-1 bg-gradient-to-r ${BRAND.gradient}`}>
           <div className="rounded-2xl bg-neutral-950/90 p-4">
             {time > 0 ? (
               <div className="space-y-4">
                 <p className="text-lg leading-tight">{current?.statement}</p>
                 <div className="grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => answer(true)}
-                    className="h-12 rounded-xl bg-white text-black hover:opacity-90"
-                  >
-                    ✓ Fact
-                  </button>
-                  <button
-                    onClick={() => answer(false)}
-                    className="h-12 rounded-xl bg-white/10 hover:bg-white/20"
-                  >
-                    ✗ Cap
-                  </button>
+                  <button onClick={() => answer(true)} className="h-12 rounded-xl bg-white text-black hover:opacity-90">✓ Fact</button>
+                  <button onClick={() => answer(false)} className="h-12 rounded-xl bg-white/10 hover:bg-white/20">✗ Cap</button>
                 </div>
                 <div className="flex items-center justify-between text-xs text-neutral-400">
                   <label className="inline-flex items-center gap-2 cursor-pointer select-none">
-                    <input
-                      type="checkbox"
-                      checked={hardMode}
-                      onChange={(e) => setHardMode(e.target.checked)}
-                    />
+                    <input type="checkbox" checked={hardMode} onChange={(e) => setHardMode(e.target.checked)} />
                     Hard mode
                   </label>
                   <button onClick={restart} className="hover:text-white">Shuffle</button>
@@ -205,18 +172,8 @@ export default function Page() {
               <div className="space-y-3 text-center">
                 <h2 className="text-xl font-bold">Time! Your score: {score}</h2>
                 <div className="flex gap-2 justify-center">
-                  <button
-                    onClick={restart}
-                    className="px-4 py-2 rounded-full bg-white text-black hover:opacity-90"
-                  >
-                    Play again
-                  </button>
-                  <button
-                    onClick={shareScore}
-                    className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20"
-                  >
-                    Share
-                  </button>
+                  <button onClick={restart} className="px-4 py-2 rounded-full bg-white text-black hover:opacity-90">Play again</button>
+                  <button onClick={shareScore} className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20">Share</button>
                 </div>
               </div>
             )}
@@ -230,24 +187,14 @@ export default function Page() {
         )}
 
         <div className="grid grid-cols-2 gap-2">
-          <a
-            href={BRAND.tiktok}
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-xl bg-white/5 p-3 text-center hover:bg-white/10"
-          >
-            More Past Fool >>
-          </a>
-          <button onClick={shareScore} className="rounded-xl bg-white/5 p-3 hover:bg-white/10">
-            Share my score
-          </button>
+          <a href={BRAND.tiktok} target="_blank" rel="noreferrer" className="rounded-xl bg-white/5 p-3 text-center hover:bg-white/10">More Past Fool >></a>
+          <button onClick={shareScore} className="rounded-xl bg-white/5 p-3 hover:bg-white/10">Share my score</button>
         </div>
 
         <div className="w-full h-16 rounded-xl border border-white/10 bg-white/5 backdrop-blur flex items-center justify-center text-xs text-neutral-400">
           Ad space
         </div>
 
-        {/* Admin Panel */}
         {adminOpen && <AdminPanel />}
       </div>
     </div>
@@ -258,9 +205,7 @@ function AdminPanel() {
   const [json, setJson] = useState<string>("");
   const [status, setStatus] = useState<string>("");
 
-  useEffect(() => {
-    setJson(JSON.stringify(QUESTION_BANK, null, 2));
-  }, []);
+  useEffect(() => { setJson(JSON.stringify(QUESTION_BANK, null, 2)); }, []);
 
   function download() {
     const blob = new Blob([json], { type: "application/json" });
@@ -285,20 +230,11 @@ function AdminPanel() {
           className="min-h-40 h-40 p-2 rounded-md bg-black/30 border border-white/10 font-mono text-xs"
         />
         <div className="text-xs text-neutral-300">
-          Format: [{{"id, statement, isTrue, blurb, source".toString()}}]
+          Format: [id, statement, isTrue, blurb, source]
         </div>
         <div className="flex gap-2">
-          <button onClick={download} className="px-4 py-2 rounded-full bg-white text-black hover:opacity-90">
-            Export JSON
-          </button>
-          <button
-            className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20"
-            onClick={() =>
-              setStatus("Import replaced at build time. For dynamic import, wire to a backend or localStorage.")
-            }
-          >
-            Import JSON
-          </button>
+          <button onClick={download} className="px-4 py-2 rounded-full bg-white text-black hover:opacity-90">Export JSON</button>
+          <button className="px-4 py-2 rounded-full bg-white/10 hover:bg-white/20" onClick={() => setStatus("Import replaced at build time. For dynamic import, wire to a backend or localStorage.")}>Import JSON</button>
         </div>
         {status && <p className="text-xs text-amber-300">{status}</p>}
         <div className="text-xs text-neutral-400">
